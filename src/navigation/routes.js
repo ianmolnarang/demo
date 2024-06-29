@@ -9,6 +9,8 @@ import BottomTab from './bottomtab';
 import Details from '../screen/Details';
 import Splash from '../screen/SplashScreen';
 import GainerCards from '../components/GainersCards';
+import SearchBar from '../components/SearchBar';
+import Search from '../screen/Search';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +56,13 @@ const Routes = () => {
                 <Stack.Screen
                     name={"Gainercards"}
                     component={GainerCards}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                 <Stack.Screen
+                    name={"Search"}
+                    component={Search}
                     options={{
                         headerShown: false,
                     }}

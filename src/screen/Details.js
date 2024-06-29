@@ -4,7 +4,7 @@ import { SearchBar } from '../components/SearchBar';
 import Graph from '../components/Graph';
 import { companyDetails } from '../helper/companyDetails'; // Assuming this contains initial static data
 
-const Details = ({ route }) => {
+const Details = ({ route , navigation}) => {
   const { companyName, companyPrice } = route.params;
   const [companyData, setCompanyData] = useState(null);
 
@@ -33,7 +33,7 @@ const Details = ({ route }) => {
       <View style={styles.topheader}>
         <Image style={styles.logo} source={require('../assets/images/logo.png')} />
         <Text style={styles.headerText}>Details</Text>
-        <SearchBar />
+        <SearchBar navigation= {navigation} />
       </View>
       <View style={styles.secheader}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -43,9 +43,9 @@ const Details = ({ route }) => {
         <Text style={styles.headerText}>$ {companyPrice}</Text>
       </View>
 
-      <View style={styles.graph}>
+      {/* <View style={styles.graph}>
         <Graph />
-      </View>
+      </View> */}
 
       <ScrollView>
         <View style={styles.aboutContainer}>
