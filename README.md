@@ -22,6 +22,8 @@ I have used Alpha Vantage's APIs to fetch the required data for the Stocks/ETFs 
 Alpha Vantage provides a comprehensive set of APIs that cover a wide range of financial data, from traditional asset classes like stocks and ETFs to economic indicators, foreign exchange rates, and commodities.
 
 ## Architecture 
+![image](https://github.com/ianmolnarang/demo/assets/76910737/e7436263-424b-45bc-9c3b-42fe2b697183)
+
 
 ## Step 1: Start the Metro Server
 
@@ -67,5 +69,4 @@ This is one way to run your app — you can also run it directly from within And
 
 ## Congratulations! :tada:
 
-You've successfully run and modified your React Native App. :partying_face:
 
