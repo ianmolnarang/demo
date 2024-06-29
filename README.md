@@ -21,6 +21,31 @@ I have used Alpha Vantage's APIs to fetch the required data for the Stocks/ETFs 
 
 Alpha Vantage provides a comprehensive set of APIs that cover a wide range of financial data, from traditional asset classes like stocks and ETFs to economic indicators, foreign exchange rates, and commodities.
 
+# Features
+
+1. **Explore Screen**
+    - **Tabs for Top Gainers and Top Losers**: The Explore Screen serves as the central hub for market insights and performance tracking. It features two tabs:
+        1. **Top Gainers**: Displays a grid of cards showing the top-performing stocks/ETFs.
+        2. **Top Losers**: Displays a grid of cards showing the underperforming stocks/ETFs.
+
+2. **Product Screen**
+    - **Detailed Information**: Provides comprehensive information about individual stocks and ETFs.
+    - **Line Graph**: Depicts the price movements over time, allowing users to analyze historical performance and trends.
+
+3. **Data API Integration**
+    - **Alpha Intelligence API**: Retrieves Top Gainers and Losers data.
+    - **Fundamental Data API**: Fetches the Company Overview information.
+    - **Core Stocks API**: Searches and retrieves stock tickers.
+
+4. **Additional Features**
+    - **Loading/Error/Empty State Handling**: Ensures the application gracefully handles loading, error, and empty states.
+    - **Well-Defined Folder Structure**: Follows a standard, well-defined folder structure for better organization and maintainability.
+    - **Third-Party Library for Line Graphs**: Utilizes a third-party library for rendering line graphs.
+    - **API Response Caching**: Implements caching with expiration for API responses to improve performance.
+    - **Dynamic Theme Switching**: Supports dynamic theme switching between Light and Dark modes.
+    - **Categorized Searches**: Allows users to filter searches by "All", "Stocks", and "ETFs" using search bar.
+  
+      
 ## Architecture 
 ![image](https://github.com/ianmolnarang/demo/assets/76910737/f821f9b2-f008-40af-ae8c-ee058bf1f3d8)
 
