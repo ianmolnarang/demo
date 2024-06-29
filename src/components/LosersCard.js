@@ -33,7 +33,7 @@ const Card = ({ navigation }) => {
     // }, []);
 
     const fetchTopLosers = async () => {
-        if (loading) return; // Prevent multiple concurrent requests
+        if (loading) return;
         setLoading(true);
         try {
             const response = await axios.get(
@@ -80,7 +80,7 @@ const Card = ({ navigation }) => {
                 <View style={styles.header}>
                     <Image
                         style={styles.companieslogo}
-                        source={require('../assets/images/google.png')}
+                        source={require('../assets/images/logoo.png')}
                     />
                 </View>
                 <View>
@@ -105,7 +105,7 @@ const Card = ({ navigation }) => {
             removeClippedSubviews={true}
             initialNumToRender={2}
             maxToRenderPerBatch={1}
-            updateCellsBatchingPeriod={100} 
+            updateCellsBatchingPeriod={100}
             windowSize={10}
             ListFooterComponent={renderFooter}
         />
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     companieslogo: {
-        height: 40,
-        width: 40,
+        height: 27,
+        width: 100,
         marginBottom: 10,
     },
     title: {

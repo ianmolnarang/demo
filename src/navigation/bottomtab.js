@@ -3,16 +3,20 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gainer from '../screen/Gainer';
 import Loser from '../screen/Loser';
 import { Image, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { selectTheme } from '../redux/slice/themeSlice';
 
 const Tab = createBottomTabNavigator();
 
 function BottomTab() {
+  const theme = useSelector(selectTheme);
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
           paddingVertical: 10,
+          backgroundColor: theme.textrevgrey
         },
         headerShown: false,
         tabBarActiveTintColor: '#007AFF',
@@ -42,10 +46,10 @@ function BottomTab() {
 }
 
 const styles = StyleSheet.create({
-    logo:{
-        height: 20 ,
-        width: 20
-    }
+  logo: {
+    height: 20,
+    width: 20,
+  }
 })
 
 

@@ -1,13 +1,8 @@
-// src/reducers/themeSlice.js
-
 import {createSlice} from '@reduxjs/toolkit';
 import colors from '../../assets/colors';
 
-// Define your light and dark themes
-
-// Initial state
 const initialState = {
-  currentTheme: 'light', // Default theme
+  currentTheme: 'light',
 };
 
 const themeSlice = createSlice({
@@ -22,7 +17,6 @@ const themeSlice = createSlice({
 
 export const {toggleTheme} = themeSlice.actions;
 
-// Selectors
 export const selectCurrentTheme = state => state.theme.currentTheme;
 export const selectTheme = state =>
   state.theme.currentTheme === 'dark' ? colors.darkTheme : colors.lightTheme;

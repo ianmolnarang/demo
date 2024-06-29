@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, useColorScheme} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { StyleSheet, Text, View, useColorScheme } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Gainer from '../screen/Gainer';
 import Loser from '../screen/Loser';
@@ -11,19 +11,17 @@ import Splash from '../screen/SplashScreen';
 import GainerCards from '../components/GainersCards';
 import SearchBar from '../components/SearchBar';
 import Search from '../screen/Search';
-import {selectTheme, toggleTheme} from '../redux/slice/themeSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import { selectTheme, toggleTheme } from '../redux/slice/themeSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch();
-  //   const [theme, setTheme] = useState(colorScheme);
   const theme = useSelector(selectTheme);
 
   useEffect(() => {
-    // setTheme(colorScheme);
     dispatch(toggleTheme(colorScheme));
   }, [colorScheme]);
   return (

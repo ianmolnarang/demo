@@ -23,7 +23,7 @@ export default function Gainer({ navigation }) {
     Animated.loop(
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 10000, 
+        duration: 10000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),

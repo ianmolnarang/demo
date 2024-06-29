@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {useEffect, useState} from 'react';
-import {ActivityIndicator, View} from 'react-native';
-import {LineChart} from 'react-native-gifted-charts';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { LineChart } from 'react-native-gifted-charts';
 
 const StockChartComponent = () => {
   const [chartData, setChartData] = useState(null);
@@ -11,31 +11,22 @@ const StockChartComponent = () => {
     const fetchStockChartData = async () => {
       try {
         const apiKey = 'JUQWYWH93GL7GES4';
-        const symbol = 'AAPL'; // Replace with your desired stock symbol
-        const interval = '5min'; // Replace with your desired interval (e.g., '5min', '15min', 'daily', 'weekly', 'monthly')
+        const symbol = 'AAPL';
+        const interval = '5min';
 
         const apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${interval}&apikey=${apiKey}`;
 
         const response = await axios.get(apiUrl);
         const data = response.data;
         console.log('response', response.data);
-        //   setGainers(topGainers);
 
-        // const response = await fetch(apiUrl);
-        // const jsonData = await response.json();
-
-        // console.log('json data was.....', jsonData);
-
-        // // Extract time series data from API response
-        const timeSeriesData = data['Time Series (5min)']; // Example for '5min' interval
+        const timeSeriesData = data['Time Series (5min)'];
 
         // Format data for react-native-gifted-charts
         const formattedData = Object.keys(timeSeriesData).map(date => ({
           label: new Date(date),
-          value: parseFloat(timeSeriesData[date]['4. close']), // Adjust this based on your data structure
+          value: parseFloat(timeSeriesData[date]['4. close']),
         }));
-
-        console.log('formatted adta was.......', formattedData);
 
         setChartData(formattedData);
         setLoading(false);
@@ -50,19 +41,19 @@ const StockChartComponent = () => {
 
   if (loading || !chartData) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <LineChart
         data={chartData}
         width={'100%'}
         height={300}
-        animation={{duration: 2000}} // Animation duration in milliseconds
+        animation={{ duration: 2000 }}
         chartConfig={{
           backgroundColor: '#ffffff',
           backgroundGradientFrom: '#ffffff',

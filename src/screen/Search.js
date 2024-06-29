@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Image, FlatList, TouchableOpacity, Text, Alert } from "react-native";
 import axios from "axios";
+import {useSelector} from 'react-redux';
+import {selectTheme} from '../redux/slice/themeSlice';
+import config from '../helper/config'
 
 export default Search = () => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const theme = useSelector(selectTheme);
 
   const handleSearch = async () => {
     try {
@@ -13,10 +17,12 @@ export default Search = () => {
         return;
       }
 
-      const apiKey = "JFR6X504DZ3ZJ5ZY";
-      const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchText}&apikey=${apiKey}`;
+      const searchUrl = `${config.baseUrl}${config.searchQuery}&apikey=${config.apiKey}`;
+      console.log(searchUrl);
 
-      const response = await axios.get(url);
+      const response = await axios.get(
+        `${config.baseUrl}${config.searchQuery}&apikey=${config.apiKey}`
+      );
 
       if (response.data.bestMatches && response.data.bestMatches.length > 0) {
         setSearchResults(response.data.bestMatches);
@@ -38,7 +44,7 @@ export default Search = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor:theme.textrev}]}>
       <View style={styles.searchView}>
         <Image style={{ height: 20, width: 20 }} source={require("../assets/images/search.png")} />
         <TextInput
@@ -68,7 +74,6 @@ export default Search = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
     padding: 25,
   },
   searchView: {

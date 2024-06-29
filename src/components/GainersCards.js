@@ -79,7 +79,7 @@ const Card = ({navigation}) => {
         <View style={styles.header}>
           <Image
             style={styles.companieslogo}
-            source={require('../assets/images/google.png')}
+            source={require('../assets/images/logoo.png')}
           />
         </View>
         <View>
@@ -105,7 +105,7 @@ const Card = ({navigation}) => {
       initialNumToRender={2}
       maxToRenderPerBatch={1}
       updateCellsBatchingPeriod={100}
-      windowSize={10} 
+      windowSize={10}
       ListFooterComponent={renderFooter}
     />
   );
@@ -119,10 +119,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     margin: 10,
-    maxWidth: '50%', // 2 cards per row
+    maxWidth: '50%',
   },
   card: {
-    // backgroundColor: 'white',
     borderRadius: 15,
     padding: 16,
     shadowColor: 'black',
@@ -138,8 +137,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   companieslogo: {
-    height: 40,
-    width: 40,
+    height: 27,
+    width: 100,
     marginBottom: 10,
   },
   title: {
