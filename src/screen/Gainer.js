@@ -62,15 +62,15 @@ export default function Gainer({ navigation }) {
               <Text style={{color:theme.text}}> 24,010.60 -33.90(0.14%)</Text>
             </View>
             <View style={[styles.seccard, { borderColor: theme.text }]}>
-              <Text style={[styles.main, { color: theme.text }]}>NIFTY 50</Text>
+              <Text style={[styles.main, { color: theme.text }]}>FINNIFTY</Text>
               <Text style={{color:theme.text}}>24,010.60 -33.90(0.14%)</Text>
             </View>
             <View style={[styles.seccard, { borderColor: theme.text }]}>
-              <Text style={[styles.main, { color: theme.text }]}>Bank NIFTY</Text>
+              <Text style={[styles.main, { color: theme.text }]}>INDIA VIX</Text>
               <Text style={{color:theme.text}}>24,010.60 -33.90(0.14%)</Text>
             </View>
             <View style={[styles.seccard, { borderColor: theme.text }]}>
-              <Text style={[styles.main, { color: theme.text }]}>BSE Sensex</Text>
+              <Text style={[styles.main, { color: theme.text }]}>BSE BANKEX</Text>
               <Text style={{color:theme.text}}>24,010.60 -33.90(0.14%)</Text>
             </View>
           </Animated.View>
