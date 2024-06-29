@@ -10,7 +10,7 @@ The Product Screen delves deeper into the details of individual stocks and ETFs.
 
 This application serves as a valuable tool for investors seeking to stay informed, make data-driven decisions, and navigate the dynamic stock and ETF markets with confidence. Its robust features and user-friendly interface make it a compelling choice for anyone looking to manage their investment portfolio on the go.
 
-##About API's
+## About API's
 
 I have used Alpha Vantage's APIs to fetch the required data for the Stocks/ETFs Broking Platform Android application. Specifically, I leveraged the following endpoints:
 
