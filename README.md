@@ -46,7 +46,8 @@ Alpha Vantage provides a comprehensive set of APIs that cover a wide range of fi
   
       
 ## Architecture 
-![image](https://github.com/ianmolnarang/demo/assets/76910737/f821f9b2-f008-40af-ae8c-ee058bf1f3d8)
+![image](https://github.com/ianmolnarang/demo/assets/76910737/2a2e6ba3-a415-4cfc-be84-583b962d2b53)
+
 
 
 
