@@ -1,4 +1,4 @@
-export const topGainersData = {
+export const Data = {
     "metadata": "Top gainers, losers, and most actively traded US tickers",
     "last_updated": "2024-06-28 16:15:59 US/Eastern",
     "top_gainers": [

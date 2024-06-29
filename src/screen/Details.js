@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, ScrollView , StyleSheet} from 'react-native';
-import { SearchBar } from '../components/SearchBar';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
+import {SearchBar} from '../components/SearchBar';
 import Graph from '../components/Graph';
-import { companyDetails } from '../helper/companyDetails'; // Assuming this contains initial static data
+import {companyDetails} from '../helper/companyDetails'; // Assuming this contains initial static data
+import {SafeAreaView} from 'react-native-safe-area-context';
+import StockChartComponent from '../components/newGraph';
+import {useSelector} from 'react-redux';
+import {selectTheme} from '../redux/slice/themeSlice';
 
-const Details = ({ route , navigation}) => {
-  const { companyName, companyPrice } = route.params;
+const Details = ({route, navigation}) => {
+  const {companyName, companyPrice} = route.params;
   const [companyData, setCompanyData] = useState(null);
+  const theme = useSelector(selectTheme);
 
   useEffect(() => {
     fetchCompanyDetails(companyName); // Fetch company details on component mount
   }, [companyName]);
 
-  const fetchCompanyDetails = async (companyName) => {
+  const fetchCompanyDetails = async companyName => {
     try {
       const response = await fetch(
-        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${companyName}&apikey=4LDFPNLCC471U23J`
+        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${companyName}&apikey=4LDFPNLCC471U23J`,
       );
       if (!response.ok) {
         throw new Error('Failed to fetch company details');
@@ -29,78 +34,126 @@ const Details = ({ route , navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, {backgroundColor: theme.background}]}>
       <View style={styles.topheader}>
-        <Image style={styles.logo} source={require('../assets/images/logo.png')} />
+        <Image
+          style={styles.logo}
+          source={require('../assets/images/logo.png')}
+        />
         <Text style={styles.headerText}>Details</Text>
-        <SearchBar navigation= {navigation} />
+        <SearchBar navigation={navigation} />
       </View>
       <View style={styles.secheader}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image style={{ height: 30, width: 30 }} source={require('../assets/images/google.png')} />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image
+            style={{height: 30, width: 30}}
+            source={require('../assets/images/google.png')}
+          />
           <Text style={styles.headerText}>{companyName}</Text>
         </View>
         <Text style={styles.headerText}>$ {companyPrice}</Text>
       </View>
 
-      {/* <View style={styles.graph}>
+      <View style={styles.graph}>
         <Graph />
-      </View> */}
+      </View>
 
       <ScrollView>
         <View style={styles.aboutContainer}>
-          <Text style={{ marginLeft: 5, borderBottomWidth: 0.5, fontWeight: '700', fontSize: 16 }}>
+          <Text
+            style={{
+              marginLeft: 5,
+              borderBottomWidth: 0.5,
+              fontWeight: '700',
+              fontSize: 16,
+            }}>
             About {companyName}
           </Text>
           {companyData ? (
             <>
-              <Text style={{ marginLeft: 5, fontSize: 12 }}>{companyData.Description}</Text>
+              <Text style={{marginLeft: 5, fontSize: 12}}>
+                {companyData.Description}
+              </Text>
               <ScrollView horizontal>
-              <View style={{ flexDirection: 'row', margin: 10 }}>
-                <Text style={styles.chip}>Industry: {companyData.Industry}</Text>
-                <Text style={styles.chip}>Sector: {companyData.Sector}</Text>
-              </View>
+                <View style={{flexDirection: 'row', margin: 10}}>
+                  <Text style={styles.chip}>
+                    Industry: {companyData.Industry}
+                  </Text>
+                  <Text style={styles.chip}>Sector: {companyData.Sector}</Text>
+                </View>
               </ScrollView>
               {/* Additional company information rendering */}
 
-              <View style={{ margin: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View
+                style={{
+                  margin: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
                 <View>
                   <Text style={styles.informationHeading}>52 Week High</Text>
-                  <Text style={styles.informationHeadingAns}>${companyData['52WeekHigh']}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    ${companyData['52WeekHigh']}
+                  </Text>
                 </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={[styles.informationHeadingAns, { marginBottom: 8 }]}> Current Price ${companyPrice}</Text>
-                  <View style={{ width: 125, height: 2, backgroundColor: 'black' }} />
+                <View style={{alignItems: 'center'}}>
+                  <Text
+                    style={[styles.informationHeadingAns, {marginBottom: 8}]}>
+                    {' '}
+                    Current Price ${companyPrice}
+                  </Text>
+                  <View
+                    style={{width: 125, height: 2, backgroundColor: 'black'}}
+                  />
                 </View>
                 <View>
                   <Text style={styles.informationHeading}>52 Week Low</Text>
-                  <Text style={styles.informationHeadingAns}>${companyData['52WeekLow']}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    ${companyData['52WeekLow']}
+                  </Text>
                 </View>
               </View>
 
-              <View style={{ margin: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View
+                style={{
+                  margin: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
                 <View>
                   <Text style={styles.informationHeading}>Market Cap</Text>
-                  <Text style={styles.informationHeadingAns}>${companyData.MarketCapitalization}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    ${companyData.MarketCapitalization}
+                  </Text>
                 </View>
                 <View>
                   <Text style={styles.informationHeading}>Profit Margin</Text>
-                  <Text style={styles.informationHeadingAns}>{companyData.ProfitMargin}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    {companyData.ProfitMargin}
+                  </Text>
                 </View>
                 <View>
                   <Text style={styles.informationHeading}>Beta</Text>
-                  <Text style={styles.informationHeadingAns}>{companyData.Beta}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    {companyData.Beta}
+                  </Text>
                 </View>
               </View>
 
-              <View style={{ margin: 10, flexDirection: 'row', marginBottom: 30 }}>
+              <View
+                style={{margin: 10, flexDirection: 'row', marginBottom: 30}}>
                 <View>
                   <Text style={styles.informationHeading}>Dividend Yield</Text>
-                  <Text style={styles.informationHeadingAns}>{companyData.DividendYield}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    {companyData.DividendYield}
+                  </Text>
                 </View>
-                <View style={{marginLeft:55}}>
+                <View style={{marginLeft: 55}}>
                   <Text style={styles.informationHeading}>P/E Ratio</Text>
-                  <Text style={styles.informationHeadingAns}>{companyData.PERatio}</Text>
+                  <Text style={styles.informationHeadingAns}>
+                    {companyData.PERatio}
+                  </Text>
                 </View>
               </View>
             </>
@@ -109,24 +162,21 @@ const Details = ({ route , navigation}) => {
           )}
         </View>
       </ScrollView>
-
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
-
+    backgroundColor: 'white',
   },
   topheader: {
     marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor:'black',
-
+    borderColor: 'black',
   },
   logo: {
     height: 40,
@@ -144,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 30,
     marginTop: 20,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   aboutContainer: {
     marginTop: 10,
@@ -152,11 +202,21 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     marginLeft: 20,
     marginRight: 20,
-    borderRadius: 5
-
+    borderRadius: 5,
   },
   graph: {
-    margin: 20
+    margin: 20,
+    borderWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.1,
+    borderColor: 'grey',
+    shadowRadius: 10,
+    padding: 10,
+    backgroundColor: '#ffffff',
   },
   chip: {
     backgroundColor: '#edd4c6',
@@ -168,14 +228,13 @@ const styles = StyleSheet.create({
   informationHeading: {
     fontWeight: '700',
     fontSize: 14,
-    color: 'black'
+    color: 'black',
   },
   informationHeadingAns: {
     fontWeight: '500',
     fontSize: 13,
-    color: 'black'
-  }
-})
-
+    color: 'black',
+  },
+});
 
 export default Details;
