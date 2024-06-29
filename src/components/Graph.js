@@ -33,6 +33,7 @@ const Graph = () => {
                 xAxisColor="#0BA5A4"
                 color="#0BA5A4"
                 isAnimated={true}
+
             />
         </View>
     );

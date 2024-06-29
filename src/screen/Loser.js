@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Image, StyleSheet, View, Text, ScrollView, Animated, Easing, Dimensions } from 'react-native';
-import Cards from '../components/Cards';
+import Cards from '../components/LosersCard';
 import Routes from '../navigation/routes';
 
 const screenWidth = Dimensions.get('window').width;
@@ -72,13 +72,6 @@ export default function Loser() {
       <ScrollView>
         <View style={styles.cardsContainer}>
           <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
         </View>
       </ScrollView>
     </View>
@@ -100,11 +93,11 @@ const styles = StyleSheet.create({
     width: 40,
   },
   cardsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 20,
-    marginBottom: 30,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // justifyContent: 'center',
+    // marginTop: 20,
+    // marginBottom: 30,
   },
   headerText: {
     color: 'black',

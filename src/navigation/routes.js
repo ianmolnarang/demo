@@ -8,6 +8,7 @@ import Loser from '../screen/Loser';
 import BottomTab from './bottomtab';
 import Details from '../screen/Details';
 import Splash from '../screen/SplashScreen';
+import GainerCards from '../components/GainersCards';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +36,27 @@ const Routes = () => {
                     options={{
                         headerShown: false,
                     }}
-                    
+                />
+                <Stack.Screen
+                    name={"Gainer"}
+                    component={Gainer}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name={"Loser"}
+                    component={Loser}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name={"Gainercards"}
+                    component={GainerCards}
+                    options={{
+                        headerShown: false,
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

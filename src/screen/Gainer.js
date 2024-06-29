@@ -1,18 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { Image, StyleSheet, View, Text, ScrollView, Animated, Easing, Dimensions } from 'react-native';
-import Cards from '../components/Cards';
+import Cards from '../components/GainersCards';
 import Routes from '../navigation/routes';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default function Gainer() {
+export default function Gainer({navigation}) {
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 10000, // Duration for one complete cycle (adjust as needed)
+        duration: 10000, // Duration for one complete cycle
         easing: Easing.linear,
         useNativeDriver: true,
       })
@@ -71,14 +71,7 @@ export default function Gainer() {
 
       <ScrollView>
         <View style={styles.cardsContainer}>
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
+        <Cards navigation={navigation} />
         </View>
       </ScrollView>
     </View>
@@ -99,13 +92,13 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
   },
-  cardsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 20,
-    marginBottom: 30,
-  },
+  // cardsContainer: {
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'center',
+  //   marginTop: 20,
+  //   marginBottom: 30,
+  // },
   headerText: {
     color: 'black',
     alignSelf: 'center',
