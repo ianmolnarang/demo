@@ -8,10 +8,9 @@ The Explore Screen serves as the central hub for market insights and performance
 ### Product Screen
 The Product Screen delves deeper into the details of individual stocks and ETFs. This screen provides users with comprehensive information about the selected asset, including its basic details and a line graph depicting the price movements over time. This feature empowers investors to make informed decisions by analyzing the historical performance and trends of the assets they are interested in.
 
-The Stocks/ETFs Broking Platform Android application is designed to be intuitive, visually appealing, and packed with valuable insights. By leveraging the power of either Kotlin or React Native, the application ensures a seamless and responsive user experience, catering to the needs of both experienced and novice investors.
-
 This application serves as a valuable tool for investors seeking to stay informed, make data-driven decisions, and navigate the dynamic stock and ETF markets with confidence. Its robust features and user-friendly interface make it a compelling choice for anyone looking to manage their investment portfolio on the go.
 
+##About API's
 
 I have used Alpha Vantage's APIs to fetch the required data for the Stocks/ETFs Broking Platform Android application. Specifically, I leveraged the following endpoints:
 
