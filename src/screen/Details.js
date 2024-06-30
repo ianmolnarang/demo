@@ -15,21 +15,41 @@ const Details = ({route, navigation}) => {
   const [companyData, setCompanyData] = useState(null);
   const theme = useSelector(selectTheme);
 
+  // useEffect(() => {
+  //   fetchCompanyDetails(companyName);
+  // }, [companyName]);
+
+  // const fetchCompanyDetails = async companyName => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${config.baseUrl}${config.companyOverviewQuery}&symbol=${companyName}&apikey=${config.apiKey}`,
+  //     );
+  //     console.log(response.data);
+  //     setCompanyData(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching company details:', error);
+  //   }
+  // }
+
   useEffect(() => {
-    fetchCompanyDetails(companyName);
+    fetchCompanyDetails(companyName); // Fetch company details on component mount
   }, [companyName]);
 
-  const fetchCompanyDetails = async companyName => {
+  const fetchCompanyDetails = async (companyName) => {
     try {
-      const response = await axios.get(
-        `${config.baseUrl}${config.companyOverviewQuery}&symbol=${companyName}&apikey=${config.apiKey}`,
+      const response = await fetch(
+        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${companyName}&apikey=4LDFPNLCC471U23J`
       );
-      console.log(response.data);
-      setCompanyData(response.data);
+      if (!response.ok) {
+        throw new Error('Failed to fetch company details');
+      }
+      const data = await response.json();
+      console.log(data);
+      setCompanyData(data);
     } catch (error) {
       console.error('Error fetching company details:', error);
     }
-  }
+  };
 
   return (
     <SafeAreaView

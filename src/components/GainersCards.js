@@ -23,36 +23,41 @@ const Card = ({navigation}) => {
 
   // Use static data for testing due to API rate limit
 
-  useEffect(() => {
-    setGainers(Data.top_gainers);
-  }, []);
+  // useEffect(() => {
+  //   setGainers(Data.top_gainers);
+  // }, []);
 
-    // useEffect(() => {
-    //   fetchTopGainers();
-    // }, []);
+    useEffect(() => {
+      fetchTopGainers();
+    }, []);
 
-  const fetchTopGainers = async () => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`
-      );
-      const topGainers = response.data.top_gainers;
-      console.log("Here are the top-gainers:", topGainers);
-      setGainers(topGainers);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching top gainers:', error);
-      setLoading(false);
-    }
-  };
+    const fetchTopGainers = async () => {
+      if (loading) return;
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`
+        );
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const topGainers = data.top_gainers;
+        console.log("Here are the top-gainers:", topGainers);
+        setGainers(topGainers);
+      } catch (error) {
+        console.error('Error fetching top gainers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
 
   const handleLoadMore = () => {
     if (!loadingMore) {
       setLoadingMore(true);
       setOffset(offset + 10);
-     // fetchTopGainers();
+      fetchTopGainers();
       setLoadingMore(false);
     }
   };

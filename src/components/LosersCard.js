@@ -39,9 +39,9 @@ const Card = ({ navigation }) => {
             const response = await axios.get(
                 `${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`
             );
-            const topGainers = response.data.top_gainers;
-            console.log("Here are the top-losers:", topGainers);
-            setLosers(topGainers);
+            const topLosers = response.data.top_losers;
+            console.log("Here are the top-losers:", topLosers);
+            setLosers(topLosers);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching top gainers:', error);

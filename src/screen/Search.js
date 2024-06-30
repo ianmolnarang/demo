@@ -21,7 +21,7 @@ export default Search = () => {
       console.log(searchUrl);
 
       const response = await axios.get(
-        `${config.baseUrl}${config.searchQuery}&apikey=${config.apiKey}`
+         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchText}&apikey=JY9K9EKY8JM5J3GN`
       );
 
       if (response.data.bestMatches && response.data.bestMatches.length > 0) {
