@@ -46,6 +46,7 @@ Alpha Vantage provides a comprehensive set of APIs that cover a wide range of fi
     - **API Response Caching**: Implements caching with expiration for API responses to improve performance.
     - **Dynamic Theme Switching**: Supports dynamic theme switching between Light and Dark modes.
     - **Categorized Searches**: Allows users to filter searches by "All", "Stocks", and "ETFs" using search bar.
+    - **Handled the edge case, since the API limit is 25 req/day, added a static data which will replace the dynamic data once the req are over, this will prevent the app to break.
   
       
 ## Architecture 
