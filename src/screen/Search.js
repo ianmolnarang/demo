@@ -17,11 +17,11 @@ export default Search = () => {
         return;
       }
 
-      const searchUrl = `${config.baseUrl}${config.searchQuery}&apikey=${config.apiKey}`;
-      console.log(searchUrl);
+      const searchUrl = `${config.baseUrl}${config.searchQuery}&keywords=${searchText}&apikey=${config.apiKey}`;
+      console.log("Using:", searchUrl);
 
       const response = await axios.get(
-         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchText}&apikey=JY9K9EKY8JM5J3GN`
+        `${config.baseUrl}${config.searchQuery}&keywords=${searchText}&apikey=${config.apiKey}`
       );
 
       if (response.data.bestMatches && response.data.bestMatches.length > 0) {

@@ -83,12 +83,6 @@ android {
         versionName "1.0"
     }
     signingConfigs {
-        release {
-      storeFile file('groww.keystore')
-      storePassword 'Rupeek@123'
-      keyAlias 'your_key_alias'
-      keyPassword 'your_key_file_alias_password'
-    }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'

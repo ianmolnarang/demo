@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import {SearchBar} from '../components/SearchBar';
 import Graph from '../components/Graph';
-import {companyDetails} from '../helper/companyDetails'; // Assuming this contains initial static data
+import {companyDetails} from '../helper/companyDetails';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import StockChartComponent from '../components/newGraph';
 import {useSelector} from 'react-redux';
@@ -15,30 +15,14 @@ const Details = ({route, navigation}) => {
   const [companyData, setCompanyData] = useState(null);
   const theme = useSelector(selectTheme);
 
-  // useEffect(() => {
-  //   fetchCompanyDetails(companyName);
-  // }, [companyName]);
-
-  // const fetchCompanyDetails = async companyName => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${config.baseUrl}${config.companyOverviewQuery}&symbol=${companyName}&apikey=${config.apiKey}`,
-  //     );
-  //     console.log(response.data);
-  //     setCompanyData(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching company details:', error);
-  //   }
-  // }
-
   useEffect(() => {
-    fetchCompanyDetails(companyName); // Fetch company details on component mount
+    fetchCompanyDetails(companyName);
   }, [companyName]);
 
   const fetchCompanyDetails = async (companyName) => {
     try {
       const response = await fetch(
-        `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${companyName}&apikey=4LDFPNLCC471U23J`
+        `${config.baseUrl}${config.detailsQuery}&symbol=${companyName}&apikey=${config.apiKey}`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch company details');

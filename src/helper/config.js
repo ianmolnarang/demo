@@ -4,5 +4,5 @@ export default config = {
     topLosersQuery: 'function=TOP_GAINERS_LOSERS',
     searchQuery: 'function=SYMBOL_SEARCH',
     detailsQuery: 'function=OVERVIEW',
-    apiKey: 'JY9K9EKY8JM5J3GN',
+    apiKey: 'ZA1IGLQU1TUL82AG',
   };

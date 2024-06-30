@@ -7,13 +7,13 @@ import {
     TouchableOpacity,
     FlatList,
     ActivityIndicator,
+    Alert,
 } from 'react-native';
 import { Data } from '../helper/DataSample';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../redux/slice/themeSlice';
-import colors from '../assets/colors';
-import config from '../helper/config'
+import config from '../helper/config';
 
 const Card = ({ navigation }) => {
     const theme = useSelector(selectTheme);
@@ -21,30 +21,34 @@ const Card = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [loadingMore, setLoadingMore] = useState(false);
     const [offset, setOffset] = useState(0);
-
-    // Use static data for testing due to API rate limit
+    const [alertShown, setAlertShown] = useState(false);
 
     useEffect(() => {
-        setLosers(Data.top_losers);
+        fetchTopLosers();
     }, []);
-
-    // useEffect(() => {
-    //   fetchTopLosers();
-    // }, []);
 
     const fetchTopLosers = async () => {
         if (loading) return;
         setLoading(true);
         try {
             const response = await axios.get(
-                `${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`
+                `${config.baseUrl}${config.topLosersQuery}&apikey=${config.apiKey}`
             );
-            const topLosers = response.data.top_losers;
+            const data = response.data;
+            const topLosers = data.top_losers;
             console.log("Here are the top-losers:", topLosers);
+            if (!topLosers) {
+                throw new Error('API limit exceeded');
+            }
             setLosers(topLosers);
-            setLoading(false);
         } catch (error) {
-            console.error('Error fetching top gainers:', error);
+            console.error('Error fetching top losers:', error);
+            if (!alertShown) {
+                Alert.alert('Error', 'API limit is over. Using static data.', [{ text: 'OK' }]);
+                setAlertShown(true);
+            }
+            setLosers(Data.top_losers);
+        } finally {
             setLoading(false);
         }
     };
@@ -53,7 +57,7 @@ const Card = ({ navigation }) => {
         if (!loadingMore) {
             setLoadingMore(true);
             setOffset(offset + 10);
-            // fetchTopLosers();
+            fetchTopLosers();
             setLoadingMore(false);
         }
     };
@@ -78,10 +82,13 @@ const Card = ({ navigation }) => {
             }>
             <View style={[styles.card, { backgroundColor: theme.textrevgrey }]}>
                 <View style={styles.header}>
-                    <Image
-                        style={styles.companieslogo}
-                        source={require('../assets/images/logoo.png')}
-                    />
+                    <View style={{ flexDirection: 'row' }}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../assets/images/logo.png')}
+                        />
+                        <Text style={{ color: theme.text, fontSize: 20, fontWeight: '500', right: 5 }}>Groww</Text>
+                    </View>
                 </View>
                 <View>
                     <Text style={[styles.subtitle, { color: theme.text }]}>{item.ticker}</Text>
@@ -137,9 +144,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    companieslogo: {
+    logo: {
         height: 27,
-        width: 100,
+        width: 50,
         marginBottom: 10,
     },
     title: {

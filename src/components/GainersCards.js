@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,51 +7,49 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
-import {Data} from '../helper/DataSample';
+import { Data } from '../helper/DataSample';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../redux/slice/themeSlice';
-import config from '../helper/config'
+import config from '../helper/config';
 
-const Card = ({navigation}) => {
+const Card = ({ navigation }) => {
   const theme = useSelector(selectTheme);
   const [gainers, setGainers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [offset, setOffset] = useState(0);
+  const [alertShown, setAlertShown] = useState(false);
 
-  // Use static data for testing due to API rate limit
+  useEffect(() => {
+    fetchTopGainers();
+  }, []);
 
-  // useEffect(() => {
-  //   setGainers(Data.top_gainers);
-  // }, []);
-
-    useEffect(() => {
-      fetchTopGainers();
-    }, []);
-
-    const fetchTopGainers = async () => {
-      if (loading) return;
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`
-        );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        const topGainers = data.top_gainers;
-        console.log("Here are the top-gainers:", topGainers);
-        setGainers(topGainers);
-      } catch (error) {
-        console.error('Error fetching top gainers:', error);
-      } finally {
-        setLoading(false);
+  const fetchTopGainers = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const response = await axios.get(`${config.baseUrl}${config.topGainersQuery}&apikey=${config.apiKey}`);
+      const data = response.data;
+      const topGainers = data.top_gainers;
+      console.log("Here are the top-gainers:", topGainers);
+      if (!topGainers) {
+        throw new Error('API limit exceeded');
       }
-    };
-
+      setGainers(topGainers);
+    } catch (error) {
+      console.error('Error fetching top gainers:', error);
+      if (!alertShown) {
+        Alert.alert('Error', 'API limit is over. Using static data.', [{ text: 'OK' }]);
+        setAlertShown(true);
+      }
+      setGainers(Data.top_gainers);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLoadMore = () => {
     if (!loadingMore) {
@@ -64,13 +62,13 @@ const Card = ({navigation}) => {
 
   const renderFooter = () => {
     return loadingMore ? (
-      <View style={{paddingVertical: 20}}>
+      <View style={{ paddingVertical: 20 }}>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     ) : null;
   };
 
-  const renderCard = ({item}) => (
+  const renderCard = ({ item }) => (
     <TouchableOpacity
       style={styles.cardContainer}
       activeOpacity={0.8}
@@ -80,17 +78,20 @@ const Card = ({navigation}) => {
           companyPrice: item.price,
         })
       }>
-      <View style={[styles.card , {backgroundColor: theme.textrevgrey}]}>
+      <View style={[styles.card, { backgroundColor: theme.textrevgrey }]}>
         <View style={styles.header}>
-          <Image
-            style={styles.companieslogo}
-            source={require('../assets/images/logoo.png')}
-          />
+          <View style={{ flexDirection: 'row' }}>
+            <Image
+              style={styles.logo}
+              source={require('../assets/images/logo.png')}
+            />
+            <Text style={{ color: theme.text, fontSize: 20, fontWeight: '500', right: 5 }}>Groww</Text>
+          </View>
         </View>
         <View>
-          <Text style={[styles.subtitle , {color:theme.text}]}>{item.ticker}</Text>
-          <Text style={[styles.priceText , {color:theme.text}]}>${item.price}</Text>
-          <Text style={[styles.graphText , {color:theme.text}]}>{item.change_percentage}</Text>
+          <Text style={[styles.subtitle, { color: theme.text }]}>{item.ticker}</Text>
+          <Text style={[styles.priceText, { color: theme.text }]}>${item.price}</Text>
+          <Text style={[styles.graphText, { color: theme.text }]}>{item.change_percentage}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -141,9 +142,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  companieslogo: {
+  logo: {
     height: 27,
-    width: 100,
+    width: 50,
     marginBottom: 10,
   },
   title: {
