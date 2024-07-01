@@ -92,7 +92,7 @@ const Details = ({route, navigation}) => {
                 <View>
                   <Text style={[styles.informationHeading, { color: theme.text}]}>52 Week High</Text>
                   <Text style={[styles.informationHeadingAns, { color: theme.text}]}>
-                    ${companyData['52WeekHigh']}
+                    $ {companyData['52WeekHigh']}
                   </Text>
                 </View>
                 <View style={{alignItems: 'center'}}>
@@ -108,7 +108,7 @@ const Details = ({route, navigation}) => {
                 <View>
                 <Text style={[styles.informationHeading, { color: theme.text}]}>52 Week Low</Text>
                   <Text style={[styles.informationHeadingAns, { color: theme.text}]}>
-                    ${companyData['52WeekLow']}
+                    $ {companyData['52WeekLow']}
                   </Text>
                 </View>
               </View>
@@ -122,7 +122,7 @@ const Details = ({route, navigation}) => {
                 <View>
                   <Text style={[styles.informationHeading, { color: theme.text}]}>Market Cap</Text>
                   <Text style={[styles.informationHeadingAns, { color: theme.text}]}>
-                    ${companyData.MarketCapitalization}
+                    {companyData.MarketCapitalization}
                   </Text>
                 </View>
                 <View>
